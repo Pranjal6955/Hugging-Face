@@ -1,29 +1,73 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Button } from './ui/Button';
 
 export function Hero() {
   return (
-    <div className="relative bg-white overflow-hidden">
+    <div className="relative bg-white dark:bg-secondary-900 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+        <div className="relative z-10 pb-8 bg-white dark:bg-secondary-900 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+          <svg
+            className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white dark:text-secondary-900 transform translate-x-1/2"
+            fill="currentColor"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <polygon points="50,0 100,0 50,100 0,100" />
+          </svg>
+
           <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-            <div className="sm:text-center lg:text-left">
-              <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+            <motion.div 
+              className="sm:text-center lg:text-left"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <motion.h1 
+                className="text-4xl tracking-tight font-extrabold text-secondary-900 dark:text-white sm:text-5xl md:text-6xl"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
                 <span className="block xl:inline">The AI community</span>{' '}
-                <span className="block text-yellow-500 xl:inline">building the future</span>
-              </h1>
-              <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                <span className="block text-primary-500 xl:inline animate-text-shimmer">building the future</span>
+              </motion.h1>
+              <motion.p 
+                className="mt-3 text-base text-secondary-500 dark:text-secondary-300 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
                 Build, train and deploy state of the art models powered by the best open source machine learning technologies.
-              </p>
-              <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+              </motion.p>
+              <motion.div 
+                className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
                 <div className="rounded-md shadow">
-                  <a href="#" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 md:py-4 md:text-lg md:px-10">
+                  <Button 
+                    size="lg"
+                    icon={<ArrowRight className="ml-2 h-5 w-5" />}
+                    className="w-full flex items-center"
+                  >
                     Get started
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </a>
+                  </Button>
                 </div>
-              </div>
-            </div>
+                <div className="mt-3 sm:mt-0 sm:ml-3">
+                  <Button 
+                    variant="outline" 
+                    size="lg" 
+                    className="w-full"
+                  >
+                    Live demo
+                  </Button>
+                </div>
+              </motion.div>
+            </motion.div>
           </main>
         </div>
       </div>

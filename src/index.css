@@ -1,3 +1,72 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply text-secondary-800 dark:text-secondary-100;
+    @apply bg-white dark:bg-secondary-900;
+    font-feature-settings: "kern";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+  
+  .btn-primary {
+    @apply bg-primary-500 text-white hover:bg-primary-600 focus-visible:ring-primary-500 dark:bg-primary-600 dark:hover:bg-primary-700;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary-100 text-secondary-900 hover:bg-secondary-200 focus-visible:ring-secondary-300 dark:bg-secondary-800 dark:text-secondary-100 dark:hover:bg-secondary-700;
+  }
+  
+  .input {
+    @apply rounded-md border border-secondary-200 bg-white px-3 py-2 text-sm shadow-sm transition-colors placeholder:text-secondary-400 focus:outline-none focus:ring-2 focus:ring-primary-400 disabled:cursor-not-allowed disabled:opacity-50 dark:border-secondary-700 dark:bg-secondary-800 dark:text-secondary-100 dark:focus:ring-primary-500;
+  }
+
+  .section {
+    @apply py-16 md:py-24;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .card {
+    @apply bg-white dark:bg-secondary-800 rounded-xl shadow-soft hover:shadow-hover transition-all duration-300 overflow-hidden border border-secondary-100 dark:border-secondary-700;
+  }
+}
+
+/* Custom animation for gradient text */
+@keyframes textShimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-text-shimmer {
+  background: linear-gradient(
+    to right,
+    #f67e12 20%,
+    #f99c44 30%,
+    #f67e12 70%,
+    #e05e09 80%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textShimmer 3s linear infinite;
+}
