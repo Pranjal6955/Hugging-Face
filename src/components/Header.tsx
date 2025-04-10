@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Search, Menu, X, Github } from 'lucide-react';
 import { ThemeToggle } from './ui/ThemeToggle';
 import { Button } from './ui/Button';
@@ -8,6 +9,7 @@ import { cn } from '../utils/cn';
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
   
   // Handle scroll effect
   useEffect(() => {
@@ -17,6 +19,19 @@ export function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close mobile menu when path changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  const navigation = [
+    { name: 'Models', href: '/models' },
+    { name: 'Datasets', href: '/datasets' },
+    { name: 'Spaces', href: '/spaces' },
+    { name: 'Enterprise', href: '/enterprise' },
+    { name: 'Pricing', href: '/pricing' },
+  ];
 
   return (
     <header 
@@ -32,20 +47,28 @@ export function Header() {
           {/* Logo and Nav Links */}
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
-              <span className="text-2xl font-bold text-secondary-900 dark:text-white">
+              <Link to="/" className="text-2xl font-bold text-secondary-900 dark:text-white">
                 🤗 <span className="animate-text-shimmer">Hugging Face</span>
-              </span>
+              </Link>
             </div>
             <nav className="hidden md:ml-6 md:flex space-x-1">
-              {['Models', 'Datasets', 'Spaces', 'Enterprise', 'Pricing'].map((item) => (
-                <a 
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className="relative px-3 py-2 text-sm font-medium text-secondary-700 dark:text-secondary-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+              {navigation.map((item) => (
+                <Link 
+                  key={item.name}
+                  to={item.href}
+                  className={cn(
+                    "relative px-3 py-2 text-sm font-medium transition-colors",
+                    location.pathname === item.href
+                      ? "text-primary-500 dark:text-primary-400"
+                      : "text-secondary-700 dark:text-secondary-300 hover:text-primary-500 dark:hover:text-primary-400"
+                  )}
                 >
-                  {item}
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary-500 scale-x-0 transition-transform origin-left group-hover:scale-x-100"></span>
-                </a>
+                  {item.name}
+                  <span className={cn(
+                    "absolute bottom-0 left-0 w-full h-0.5 bg-primary-500 scale-x-0 transition-transform origin-left",
+                    location.pathname === item.href && "scale-x-100"
+                  )}></span>
+                </Link>
               ))}
             </nav>
           </div>
@@ -71,19 +94,23 @@ export function Header() {
                   <Github className="h-5 w-5" />
                 </a>
                 
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                >
-                  Login
-                </Button>
+                <Link to="/login">
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                  >
+                    Login
+                  </Button>
+                </Link>
                 
-                <Button
-                  variant="primary"
-                  size="sm"
-                >
-                  Sign Up
-                </Button>
+                <Link to="/signup">
+                  <Button
+                    variant="primary"
+                    size="sm"
+                  >
+                    Sign Up
+                  </Button>
+                </Link>
               </div>
             </div>
             
@@ -116,15 +143,19 @@ export function Header() {
             className="md:hidden bg-white dark:bg-secondary-900 border-b border-secondary-100 dark:border-secondary-800"
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {['Models', 'Datasets', 'Spaces', 'Enterprise', 'Pricing'].map((item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-secondary-900 dark:text-secondary-100 hover:bg-secondary-100 dark:hover:bg-secondary-800"
-                  onClick={() => setIsMobileMenuOpen(false)}
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={cn(
+                    "block px-3 py-2 rounded-md text-base font-medium",
+                    location.pathname === item.href
+                      ? "text-primary-500 bg-primary-50 dark:bg-primary-900/10 dark:text-primary-400"
+                      : "text-secondary-900 dark:text-secondary-100 hover:bg-secondary-100 dark:hover:bg-secondary-800"
+                  )}
                 >
-                  {item}
-                </a>
+                  {item.name}
+                </Link>
               ))}
               <div className="pt-4 flex flex-col space-y-2">
                 <div className="relative">
@@ -137,8 +168,12 @@ export function Header() {
                     placeholder="Search"
                   />
                 </div>
-                <Button variant="outline" className="w-full justify-center">Login</Button>
-                <Button variant="primary" className="w-full justify-center">Sign Up</Button>
+                <Link to="/login" className="w-full">
+                  <Button variant="outline" className="w-full justify-center">Login</Button>
+                </Link>
+                <Link to="/signup" className="w-full">
+                  <Button variant="primary" className="w-full justify-center">Sign Up</Button>
+                </Link>
               </div>
             </div>
           </motion.div>

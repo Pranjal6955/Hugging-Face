@@ -42,34 +42,26 @@ const tiers = [
 
 export function Pricing() {
   return (
-    <div className="bg-gray-900">
-      <div className="pt-12 sm:pt-16 lg:pt-24">
-        <div className="max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto space-y-2 lg:max-w-none">
-            <h2 className="text-lg leading-6 font-semibold text-gray-300 uppercase tracking-wider">
-              Pricing
-            </h2>
-            <p className="text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">
-              The right price for you, whoever you are
-            </p>
-            <p className="text-xl text-gray-300">
-              Choose the perfect plan for your needs. Always know what you'll pay.
-            </p>
-          </div>
+    <section id="pricing" className="bg-secondary-50 dark:bg-secondary-900 py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <h2 className="text-lg leading-6 font-semibold text-primary-500 uppercase tracking-wider">
+            Pricing
+          </h2>
+          <p className="mt-2 text-3xl font-extrabold text-secondary-900 dark:text-white sm:text-4xl lg:text-5xl">
+            The right price for you
+          </p>
+          <p className="mt-4 max-w-3xl mx-auto text-xl text-secondary-600 dark:text-secondary-300">
+            Choose the perfect plan for your needs. Always know what you'll pay.
+          </p>
+        </div>
+        
+        <div className="mt-16 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
+          {tiers.map((tier) => (
+            <PricingTier key={tier.name} {...tier} />
+          ))}
         </div>
       </div>
-      <div className="mt-8 pb-12 bg-gray-50 sm:mt-12 sm:pb-16 lg:mt-16 lg:pb-24">
-        <div className="relative">
-          <div className="absolute inset-0 h-3/4 bg-gray-900"></div>
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md mx-auto space-y-4 lg:max-w-5xl lg:grid lg:grid-cols-3 lg:gap-5 lg:space-y-0">
-              {tiers.map((tier) => (
-                <PricingTier key={tier.name} {...tier} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }
